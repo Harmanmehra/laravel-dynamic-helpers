@@ -63,12 +63,12 @@ class MakeHelperCommand extends Command
 
         file_put_contents($path, $content);
 
-        $relativePath = str_replace(base_path().'/', '', $path);
-        $this->info("Helper created: {$relativePath}");
-
         // Generate access method name (flatten path: Store/CreateHelper -> storeCreateHelper)
         $accessName = Str::camel(implode('', $namespaceParts).$className);
-        $this->info("You can now access it using helpers()->{$accessName}();");
+
+        $relativePath = str_replace(base_path().'/', '', $path);
+        $this->info("Helper created: {$relativePath}");
+        $this->info("You can now access it using {$accessName}(); or helpers()->{$accessName}();");
 
         return Command::SUCCESS;
     }
