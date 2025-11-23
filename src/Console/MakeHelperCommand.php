@@ -36,7 +36,8 @@ class MakeHelperCommand extends Command
         $path = $directory.'/'.$className.'.php';
 
         if (file_exists($path)) {
-            $this->error("Helper {$className} already exists!");
+            $relativePath = str_replace(base_path().'/', '', $path);
+            $this->components->error("Helper [{$relativePath}] already exists.");
 
             return Command::FAILURE;
         }
@@ -50,7 +51,7 @@ class MakeHelperCommand extends Command
         $stubPath = __DIR__.'/../../stubs/helper.stub';
 
         if (! file_exists($stubPath)) {
-            $this->error("Stub file not found at: {$stubPath}");
+            $this->components->error("Stub file not found at: {$stubPath}");
 
             return Command::FAILURE;
         }
@@ -67,8 +68,8 @@ class MakeHelperCommand extends Command
         $accessName = Str::camel(implode('', $namespaceParts).$className);
 
         $relativePath = str_replace(base_path().'/', '', $path);
-        $this->info("Helper created: {$relativePath}");
-        $this->info("You can now access it using {$accessName}(); or helpers()->{$accessName}();");
+        $this->components->info("Helper [{$relativePath}] created successfully.");
+        $this->components->info("You can now access it using {$accessName}(); or helpers()->{$accessName}();");
 
         return Command::SUCCESS;
     }

@@ -89,6 +89,7 @@ class MakeHelperCommandTest extends TestCase
             ->assertSuccessful();
 
         $this->artisan('make:helper', ['name' => 'DuplicateHelper'])
+            ->expectsOutputToContain('Helper [app/Helpers/DuplicateHelper.php] already exists.')
             ->assertFailed();
     }
 
@@ -116,8 +117,8 @@ class MakeHelperCommandTest extends TestCase
     public function test_it_outputs_success_message_with_access_info()
     {
         $this->artisan('make:helper', ['name' => 'TestHelper2'])
-            ->expectsOutput('Helper created: app/Helpers/TestHelper2.php')
-            ->expectsOutput('You can now access it using helpers()->testHelper2();')
+            ->expectsOutputToContain('Helper [app/Helpers/TestHelper2.php] created successfully.')
+            ->expectsOutputToContain('You can now access it using testHelper2(); or helpers()->testHelper2();')
             ->assertSuccessful();
     }
 
@@ -127,8 +128,8 @@ class MakeHelperCommandTest extends TestCase
     public function test_it_outputs_correct_access_name_for_nested_helpers()
     {
         $this->artisan('make:helper', ['name' => 'Store/CreateHelper2'])
-            ->expectsOutput('Helper created: app/Helpers/Store/CreateHelper2.php')
-            ->expectsOutput('You can now access it using helpers()->storeCreateHelper2();')
+            ->expectsOutputToContain('Helper [app/Helpers/Store/CreateHelper2.php] created successfully.')
+            ->expectsOutputToContain('You can now access it using storeCreateHelper2(); or helpers()->storeCreateHelper2();')
             ->assertSuccessful();
     }
 
